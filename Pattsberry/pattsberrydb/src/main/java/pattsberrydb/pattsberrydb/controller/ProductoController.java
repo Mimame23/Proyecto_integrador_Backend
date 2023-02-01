@@ -40,14 +40,14 @@ public class ProductoController {
 	public Producto addProducto (@RequestBody Producto producto) {
 		return productoService.addProducto(producto);
 	}//addproduct
-	@PutMapping
+	@PutMapping(path="{prodId}")
 	public Producto updateProducto (@PathVariable("prodId")Long id,
 			@RequestParam (required = false)String nombre,
 			@RequestParam (required = false)String descripcion,
 			@RequestParam (required = false)String imagen,
 			@RequestParam (required = false)String tamano,
-			@RequestParam (required = false)String sku) {
-		
-		return productoService.updateProducto(id, nombre, descripcion, imagen, tamano, sku);
+			@RequestParam (required = false)String sku,
+			@RequestParam (required = false)Double precio){
+		return productoService.updateProducto(id, nombre, descripcion, imagen, tamano, sku, precio);
 	}//updateProduct
 }//classProductocontroller

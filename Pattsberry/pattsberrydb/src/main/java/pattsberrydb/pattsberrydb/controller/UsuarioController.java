@@ -46,11 +46,6 @@ public class UsuarioController {
 			@RequestParam (required = false)String correo,
 			@RequestParam (required = false)String telefono,
 			@RequestParam (required = false)Boolean administrador) {
-		System.out.println(nombre );
-		System.out.println(contrasena);
-		System.out.println(correo);
-		System.out.println(telefono);
-		System.out.println(administrador);
 		return usuarioService.updateUsuario(id, nombre, contrasena, correo, telefono, administrador);
 	}//updateUsuario
 

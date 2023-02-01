@@ -35,18 +35,19 @@ public class ProductoService {
 		return productoRepository.save(producto);
 	}//addproducto
 	
-	public Producto updateProducto(Long id, String nombre, String descripcion,String imagen, String tamano, String sku ) {
+	public Producto updateProducto(Long id, String nombre, String descripcion,String imagen, String tamano, String sku, Double precio) {
 		Producto tmp =null;
 		if(productoRepository.existsById(id)) {
 			tmp=productoRepository.findById(id).get();
 			if(nombre != null)tmp.setNombre(nombre);
 			if(descripcion != null)tmp.setDescripcion(descripcion);
 			if(imagen != null)tmp.setImagen(imagen);
-			if(tamano != null)tmp.setTamaño(tamano);
+			if(tamano != null)tmp.setTamano(tamano);
 			if(sku != null)tmp.setSKU(sku);
+			if(precio!=null) tmp.setPrecio(precio.doubleValue());
 			productoRepository.save(tmp);
 	}else {
-		System.out.println("Update - del producto con el id" + id +"no se ha actualizado");
+		System.out.println("Update - El producto con el id" + id +"no se ha actualizado");
 	}//else
 		return tmp;
 	}//updateProducto

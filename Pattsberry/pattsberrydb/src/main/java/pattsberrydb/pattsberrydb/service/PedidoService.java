@@ -29,10 +29,10 @@ public Pedido deletePedido(Long id) {
 		pedidoRepository.deleteById(id);
 	}
 	return tmp;
-}//deleteproducto
+}//deletepedido
 public Pedido addPedido(Pedido pedido) {
 	return pedidoRepository.save(pedido);
-}//addproducto
+}//addpedido
 public Pedido updatePedido(Long id,Double total, String fecha) {
 	Pedido tmp=null;
 	if(pedidoRepository.existsById(id)) {

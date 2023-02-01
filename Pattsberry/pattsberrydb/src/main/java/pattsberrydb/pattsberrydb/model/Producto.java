@@ -24,15 +24,17 @@ public class Producto {
 	private String tamano;
 	@Column(nullable=false)
 	private String sku;
-
+	@Column(nullable=false)
+	private double precio;
 	
-	public Producto(String nombre, String descripcion, String imagen, String tamano, String sku) {
+	public Producto(String nombre, String descripcion, String imagen, String tamano, String sku, double precio) {
 		super();
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.imagen = imagen;
 		this.tamano = tamano;
 		this.sku = sku;
+		this.precio=precio;
 	}//constructorconcampos
 	public Producto() {
 		
@@ -55,12 +57,12 @@ public class Producto {
 	public void setImagen(String imagen) {
 		this.imagen = imagen;
 	}//setImagen
-	public String getTamaño() {
+	public String getTamano() {
 		return tamano;
-	}//getTamaño
-	public void setTamaño(String tamano) {
+	}//gettamano
+	public void setTamano(String tamano) {
 		this.tamano = tamano;
-	}//setTamaño
+	}//settamano
 	public String getSKU() {
 		return sku;
 	}//getSKU
@@ -70,10 +72,17 @@ public class Producto {
 	public Long getId() {
 		return id;
 	}//getId
+	
+	public double getPrecio() {
+		return precio;
+	}//getprecio
+	public void setPrecio(double precio) {
+		this.precio = precio;
+	}//setprecio
 	@Override
 	public String toString() {
 		return "Producto [Nombre=" + nombre + ", Descripcion=" + descripcion + ", Imagen=" + imagen
-				+  ", Tamaño=" + tamano + ", SKU=" + sku + "]";
+				+  ", Tamano=" + tamano + ", SKU=" + sku + ", Precio="+precio+"]";
 	}//toString
 	
 	
