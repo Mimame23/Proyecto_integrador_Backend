@@ -3,6 +3,28 @@ let btnregistrar = document.getElementById('btnEnviar02');
 let idTimeout;
 let datosUsuario = [];
 let validos = 0;
+
+let usuariodb=[];
+function getUser(){
+  return fetch('/api/usuarios/', {
+    method: 'GET',})
+    .then(function (response) {
+      response.json().then(function (json) {
+        usuariodb = json;
+        usuariodb.forEach((usuario) => {
+         return usuario;
+        }); // foreach
+        console.log(usuariodb);
+      }); //then
+    })
+    .catch(function (err) {
+      console.log(err);
+    });
+}
+window.addEventListener('load', function (event) {
+  getUser();
+  });
+
 btnenviar.addEventListener('click', function (event) {
   event.preventDefault();
   let inputUsuario = document.getElementById('usuario');
@@ -39,9 +61,10 @@ btnenviar.addEventListener('click', function (event) {
     //Modal
 
     function login(username, password) {
-      let users = JSON.parse(localStorage.getItem('datosUsuario'));
-      for (let i = 0; i < users.length; i++) {
-        if (users[i].correo == username && users[i].password == password) {
+      let users = usuariodb;
+     
+      for (let i = 0; i < users.length; i++) { 
+        if (users[i].correo == username && users[i].contraseña == password) {
           validos++;
           alertError.style.display = 'none';
           alertError.innerHTML += '';
@@ -58,15 +81,16 @@ btnenviar.addEventListener('click', function (event) {
         }
       }
     }
-    let tmp = localStorage.getItem('datosUsuario');
+    let tmp = usuariodb;
     if (tmp != null) {
-      datosUsuario = JSON.parse(tmp);
+      usuariodb;
       let inputUsuario = document.getElementById('usuario');
       let inputPassword = document.getElementById('password');
       login(inputUsuario.value, inputPassword.value);
     }
   }
 });
+
 btnregistrar.addEventListener('click', function (event) {
   event.preventDefault();
   window.location.href = '../html/Registro.html';

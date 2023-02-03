@@ -18,22 +18,16 @@ public class Producto {
 	private String nombre;
 	@Column(nullable=false)
 	private String descripcion;
-	@Column(nullable=false)
+	@Column(nullable=false,length=3000)
 	private String imagen;
-	@Column(nullable=false)
-	private String tamano;
-	@Column(nullable=false)
-	private String sku;
 	@Column(nullable=false)
 	private double precio;
 	
-	public Producto(String nombre, String descripcion, String imagen, String tamano, String sku, double precio) {
+	public Producto(String nombre, String descripcion, String imagen, double precio) {
 		super();
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.imagen = imagen;
-		this.tamano = tamano;
-		this.sku = sku;
 		this.precio=precio;
 	}//constructorconcampos
 	public Producto() {
@@ -57,18 +51,6 @@ public class Producto {
 	public void setImagen(String imagen) {
 		this.imagen = imagen;
 	}//setImagen
-	public String getTamano() {
-		return tamano;
-	}//gettamano
-	public void setTamano(String tamano) {
-		this.tamano = tamano;
-	}//settamano
-	public String getSKU() {
-		return sku;
-	}//getSKU
-	public void setSKU(String sku) {
-		this.sku = sku;
-	}//setSKU
 	public Long getId() {
 		return id;
 	}//getId
@@ -82,7 +64,7 @@ public class Producto {
 	@Override
 	public String toString() {
 		return "Producto [Nombre=" + nombre + ", Descripcion=" + descripcion + ", Imagen=" + imagen
-				+  ", Tamano=" + tamano + ", SKU=" + sku + ", Precio="+precio+"]";
+				+  ", Precio="+precio+"]";
 	}//toString
 	
 	

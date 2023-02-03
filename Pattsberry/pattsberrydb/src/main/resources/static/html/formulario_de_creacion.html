@@ -191,18 +191,20 @@
         </div>
         <br />
         <div class="seleccionaImg">
-          <div class="input-group">
-            <input type="file" class="form-control" id="inputImg" />
-            <br />
-            <img
-              id="imageFile"
-              name="imageFile"
-              src=""
-              alt="Vista previa"
-              title="Vista previa"
-              height="100px"
-              width="auto"
-            />
+          <br />
+          <div class="seleccionaImg">
+            <div class="form-group">
+              <label for="photo_ud">Photo Link Online</label>
+              <input type="text" name="photo_id" id="selectImage" />
+            </div>
+            <div class="user-avatar-container">
+              <img
+                id="prevImage"
+                src="/images/default-user.png"
+                alt=""
+                width="200"
+              />
+            </div>
           </div>
         </div>
         <br />
@@ -280,3 +282,4 @@
     <script src="/js/logout.js"></script>
   </body>
 </html>
+

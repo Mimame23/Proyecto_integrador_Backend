@@ -32,8 +32,6 @@ public void pruebaPOST() throws Exception {
 	p.setNombre("libreta girasoles");
 	p.setDescripcion("Libreta de arillo, tamaño media carta, 100 hojas rayadas");
 	p.setImagen("/Images/libretasImg/girasoles.jpg");
-	p.setSKU("LP¨0003");
-	p.setTamano("media carta");
 	p.setPrecio(200.00);
 	this.mockMvc.perform( post("/api/productos/")
 			.contentType(MediaType.APPLICATION_JSON) 

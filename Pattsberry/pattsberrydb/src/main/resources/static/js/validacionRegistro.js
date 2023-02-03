@@ -3,12 +3,11 @@ let idTimeout;
 let validos = 0;
 let base64 = '';
 const priceRegex = /^\d+(\.\d{2})?$/;
-const regexImg = new RegExp(/[^\s]+(.*?).(jpg|jpeg|png|JPG|JPEG|PNG)$/);
+const regexImg = new RegExp(/^https?:\/\/[\w\-]+(\.[\w\-]+)+[/#?]?.*$/);
 let tabla = document.getElementById('tablaRegistrado');
 let cuerpoTabla = tabla.getElementsByTagName('tbody');
-let fileImage = document.getElementById('inputImg');
-let imageFile = document.getElementById('imageFile');
-let preview = document.getElementById('imageFile');
+let prevImage = document.getElementById('prevImage');
+let selectImage = document.getElementById('selectImage');
 
 let productosPB = [
   {
@@ -114,37 +113,18 @@ let productosPB = [
   },
 ];
 
-fileImage.addEventListener('change', function () {
-  previewFile('inputImg', 'inputFile');
-  //previewFile(id imagen, input type file , textArea);
+selectImage.addEventListener("change", function(){ 
+prevImage.src=this.value;
 });
 
-//previewFile(id imagen, input type file , textArea);
-function previewFile(inputFile, input) {
-  let file = document.getElementById(inputFile).files[0];
-  let reader = new FileReader();
 
-  reader.addEventListener(
-    'load',
-    function () {
-      document.getElementById(input).value = reader.result;
-      preview.src = reader.result;
-      base64 = reader.result;
-    },
-    false
-  );
-
-  if (file) {
-    reader.readAsDataURL(file);
-  } // file
-} // previewFile
 
 btnenviar.addEventListener('click', function (event) {
   event.preventDefault();
   let inputNombre = document.getElementById('name');
   let inputPrice = document.getElementById('price');
   let inputDescripcion = document.getElementById('description');
-  let inputImg = document.getElementById('inputImg');
+  let inputImg = document.getElementById('selectImage');
   let alertError = document.getElementById('alertError');
 
   alertError.style.display = 'none';
@@ -225,17 +205,35 @@ btnenviar.addEventListener('click', function (event) {
       }, 3000);
     }
   } else {
-    let elemento = `{
-    "name": "${inputNombre.value} ",
-    "price": "${inputPrice.value}",
-    "description": "${inputDescripcion.value}",
-    "inputImg": "${base64}" 
-    
-    }`;
+    let elemento = {
+      "nombre": inputNombre.value,
+      "precio": parseFloat(inputPrice.value),
+      "descripcion": inputDescripcion.value,
+      "imagen": inputImg.value,
+    };
+
+    console.log( JSON.stringify(elemento));
+
+    //const URL_LOGIN = '/api/usuarios/';
+    async function addProd() {
+      return await fetch('/api/productos/', {
+        method: 'POST',
+        body: JSON.stringify(elemento),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+        .then((res) => res.json())
+        .catch((error) => console.error('Error:', error))
+        .then((response) => console.log('Success:', response));
+    }
+
+    console.log(addProd());
+
     Swal.fire('Se ha registro el objeto con éxito.', '', 'success');
 
-    productosPB.push(JSON.parse(elemento));
-    localStorage.setItem('productosPB', JSON.stringify(productosPB));
+    // productosPB.push(JSON.parse(elemento));
+    // localStorage.setItem('productosPB', JSON.stringify(productosPB));
 
     cuerpoTabla[0].innerHTML += `<tr>
     <th> ${inputNombre.value} </th>
@@ -247,7 +245,7 @@ btnenviar.addEventListener('click', function (event) {
     inputPrice.value = '';
     inputDescripcion.value = '';
     inputImg.value = '';
-    preview.src = '';
+    prevImage.src = '';
     inputNombre.focus();
   }
 }); //Event listener de btnenviar
